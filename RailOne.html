@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Template</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 16px 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .mobile-screen {
+            width: 100%;
+            max-width: 360px;
+            background: #ffffff;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .top-bar {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            padding: 24px 20px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .top-bar span {
+            font-weight: normal;
+            font-size: 13px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .countdown-box {
+            position: relative;
+            background: #111827;
+            color: white;
+            margin: 10px;
+            padding: 15px 25px;
+            border-radius: 11px;
+            text-align: center;
+            border-top: 8px solid #f4d7a1;
+            border-bottom: 8px solid #f4d7a1;
+        }
+
+        /* Vertical text */
+        .railway {
+            position: absolute;
+            top: 50%;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: white;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .railway.left {
+            left: -32px;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .railway.right {
+            right: -32px;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .countdown-box h1 {
+            font-size: 38px;
+            color: #ff3b3b;
+            margin: 6px 0;
+        }
+
+        .booking-time-display {
+            font-size: 16px;
+            color: #ffb43b;
+            margin: 4px 0;
+            font-weight: bold;
+        }
+
+        .ticket-info-sub {
+            font-size: 12px;
+            color: #d1d5db;
+        }
+
+        .ticket-card {
+            background: #ffffff;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            font-size: 14px;
+        }
+
+        .ticket-card p {
+            margin: 4px 0;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .route-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 15px 0 8px 0;
+        }
+
+        .route-distance {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: normal;
+        }
+
+        .id-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .note {
+            background: #ffe5e5;
+            color: #b91c1c;
+            padding: 10px;
+            margin: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mobile-screen">
+
+        <div class="top-bar">
+            Booking Details
+            <span>Mobile 8390342444</span>
+        </div>
+
+        <div class="countdown-box">
+            <div class="railway left">INDIAN RAILWAYS</div>
+            <div class="railway right">भारतीय रेल्वे</div>
+
+            <div style="font-size: 13px;">Dynamic preview will close in</div>
+            <h1 id="timer">30:57</h1>
+            <div style="font-size: 12px; color: #9ca3af;">Ticket Booking Date & Time</div>
+            <div class="booking-time-display" id="booking-timestamp">--</div>
+            <div style="font-size: 13px; margin-top: 4px;">R16237</div>
+            <div class="ticket-info-sub">Ticket is non-Transferable</div>
+        </div>
+
+        <div class="ticket-card">
+            <div class="row" style="margin-bottom: 12px;">
+                <strong>Season Ticket</strong>
+                <strong>XYDIEA2000</strong>
+            </div>
+
+            <div class="route-row">
+                <span>Daund JN</span>
+                <span class="route-distance">-96 km-</span>
+                <span>Akurdi</span>
+            </div>
+
+            <p style="margin: 8px 0 16px 0;">Via<br><b>Pune</b></p>
+
+            <div class="row">
+                <span>Valid From:<br><b id="valid-from">--</b></span>
+                <span>Valid Till:<br><b id="valid-till">--</b></span>
+            </div>
+
+            <p>Monthly | Second | ₹355.00</p>
+
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+
+            <div class="row" style="margin-bottom: 12px;">
+                <span>Name<br><b>Ganesh Kshirsagar</b></span>
+                <span>Age<br><b>27</b></span>
+            </div>
+
+            <div class="id-details">
+                <div>
+                    <span style="color: #64748b; font-size: 12px;">ID Type:</span><br>
+                    <span>Aadhaar Card</span>
+                </div>
+                <div>
+                    <span style="color: #64748b; font-size: 12px;">ID Number:</span><br>
+                    <span>833664176608</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            Note: This ticket is non refundable. Do not factory reset your device.
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Automatic Pass Dates (Current date to next month - 1 day)
+        function formatPassDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function updatePassValidity() {
+            const now = new Date();
+
+            // Valid From: Today's date
+            const startDate = new Date();
+
+            // Valid Till: Exactly one month later minus one day
+            const endDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() - 1);
+
+            document.getElementById('valid-from').textContent = formatPassDate(startDate);
+            document.getElementById('valid-till').textContent = formatPassDate(endDate);
+
+            // Dynamic Booking Date & Time formatted: 09 October 2026, 00:04
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const bDay = String(now.getDate()).padStart(2, '0');
+            const bMonth = months[now.getMonth()];
+            const bYear = now.getFullYear();
+            const bHours = String(now.getHours()).padStart(2, '0');
+            const bMins = String(now.getMinutes()).padStart(2, '0');
+
+            document.getElementById('booking-timestamp').textContent = 
+                `${bDay} ${bMonth} ${bYear}, ${bHours}:${bMins}`;
+        }
+
+        updatePassValidity();
+
+        // 2. Countdown Timer
+        let minutes = 30;
+        let seconds = 57;
+        const timer = document.getElementById("timer");
+
+        setInterval(function () {
+            if (seconds === 0) {
+                if (minutes === 0) return;
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+
+            timer.textContent =
+                String(minutes).padStart(2, '0') + ":" +
+                String(seconds).padStart(2, '0');
+        }, 1000);
+    </script>
+</body>
+
+</html>

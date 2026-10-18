@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RailOne - Indian Railways Super Portal</title>
+  <link rel="icon" type="image/png" href="imgs/logo.png">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+  <style>/* 1. Global Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 2. Constrain page width so it stays clean like a native mobile app */
+.top-nav,
+.app-container,
+.bottom-tab-bar {
+  width: 100%;
+  max-width: 480px; /* Standard phone width */
+}
+
+/* 3. Header */
+.top-nav {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 4. App Container: Extra bottom padding so bottom-tab-bar doesn't cover content */
+.app-container {
+  padding: 16px 16px 90px 16px;
+}
+
+/* 5. Service Tabs: Scroll horizontally if screen is small */
+.service-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none; /* Hide scrollbar for clean UI */
+}
+.service-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* 6. Form Row Responsiveness */
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 380px) {
+  .form-row-2 {
+    grid-template-columns: 1fr; /* Stacks Date and Class on small phones */
+  }
+}
+
+/* 7. Radio Pill Options (Reserved, UTS, Tatkal, etc.) */
+.booking-types {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+
+/* 8. Fixed Bottom Navigation */
+.bottom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid #e2e8f0;
+  z-index: 1000;
+}
+</style>
+  <!-- Top App Bar / Header -->
+  <header class="top-nav">
+    
+    <div class="nav-brand">
+      <div class="logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+      </div>
+
+
+      <div>
+        <h1 class="logo-text">Rail<span>One</span></h1>
+        <p class="tagline">Indian Railways Super Portal</p>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="lang-btn" title="Language">EN</button>
+      <button class="icon-btn notification-btn" title="Alerts">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        <span class="badge-dot"></span>
+      </button>
+      <div class="user-avatar" title="Account">RK</div>
+    </div>
+  </header>
+
+  <main class="app-container">
+    
+    <!-- Hero / Quick Status Banner -->
+    <section class="quick-status-card">
+      <div class="status-content">
+        <span class="pill-live"><span class="pulse"></span> LIVE UPDATES</span>
+        <h2>Unified Rail Services</h2>
+        <p>Book tickets, track trains live, order food to your seat & check PNR instantly.</p>
+      </div>
+      <div class="quick-stats">
+        <div class="stat-item">
+          <strong>139</strong>
+          <span>24x7 Helpline</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>100%</strong>
+          <span>CRIS / IRCTC Sync</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Service Booking Hub -->
+    <section class="service-hub">
+      <div class="service-tabs">
+        <button class="tab-btn active" data-tab="book"><a href="RailOne.html" Ticket></button></a>
+        <button class="tab-btn" data-tab="pnr">PNR Status</button>
+        <button class="tab-btn" data-tab="live">Live Train</button>
+        <button class="tab-btn" data-tab="food">E-Catering</button>
+      </div>
+
+      <!-- Tab Content: Book Tickets -->
+      <div class="tab-panel active" id="tab-book">
+        <form id="train-search-form" onsubmit="event.preventDefault(); handleTrainSearch();">
+          <div class="route-box">
+            <div class="input-group">
+              <label>FROM STATION</label>
+              <div class="input-with-icon">
+                <span class="field-icon">🚉</span>
+                <input type="text" id="from-station" placeholder="e.g. Pune Jn (PUNE)" value="Pune Jn (PUNE)" required>
+              </div>
+            </div>
+
+            <button type="button" class="swap-btn" id="swap-stations" title="Swap Stations">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="16" x2="17" y2="16"></line><polyline points="13 20 17 16 13 12"></polyline><line x1="17" y1="8" x2="7" y2="8"></line><polyline points="11 4 7 8 11 12"></polyline></svg>
+            </button>
+
+            <div class="input-group">
+              <label>TO STATION</label>
+              <div class="input-with-icon">
+                <span class="field-icon">🎯</span>
+                <input type="text" id="to-station" placeholder="e.g. Mumbai CSMT (CSMT)" value="Mumbai CSMT (CSMT)" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="input-group">
+              <label>DATE OF JOURNEY</label>
+              <input type="date" id="journey-date" required>
+            </div>
+            <div class="input-group">
+              <label>CLASS / QUOTA</label>
+              <select id="travel-class">
+                <option value="ALL">All Classes (CC, 3A, 2A, SL)</option>
+                <option value="EC">Exec. Chair Car (EC)</option>
+                <option value="CC">AC Chair Car (CC)</option>
+                <option value="3A">AC 3 Tier (3A)</option>
+                <option value="2A">AC 2 Tier (2A)</option>
+                <option value="SL">Sleeper (SL)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="booking-types">
+           <label class="radio-pill">
+  <input type="radio" name="b-type" value="reserved" checked>
+  <a href="RailOne.html" style="text-decoration: none; color: inherit; display: inline-block; width: 100%;">
+    <span>Reserved</span>
+  </a>
+</label>
+
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="b-type" value="uts">
+              <span>UTS / Local</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="b-type" value="tatkal">
+              <span>Tatkal</span>
+            </label>
+            <label class="radio-pill" onclick="window.location.href='Railone.html'">
+              <input type="radio" name="b-type" value="platform">
+
+              <a href="RailOne.html" style="text-decoration: none; color: inherit; display: inline-block; width: 100%;">
+    <span>View Details</span>
+  </a>
+            
+            </label>
+          </div>
+
+          <button type="submit" class="cta-primary-btn">
+            <span>Find Trains</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Tab Content: PNR Status -->
+      <div class="tab-panel" id="tab-pnr">
+        <form onsubmit="event.preventDefault(); handlePNRSearch();">
+          <div class="input-group">
+            <label>ENTER 10-DIGIT PNR NUMBER</label>
+            <div class="input-with-icon">
+              <span class="field-icon">🎫</span>
+              <input type="tel" id="pnr-number" maxlength="10" placeholder="e.g. 4521890312" required>
+            </div>
+          </div>
+          <p class="field-hint">Passenger Name Record status with coach & berth allocation.</p>
+          <button type="submit" class="cta-primary-btn">Check PNR Status</button>
+        </form>
+      </div>
+
+      <!-- Tab Content: Live Train -->
+      <div class="tab-panel" id="tab-live">
+        <form onsubmit="event.preventDefault(); handleLiveTrain();">
+          <div class="input-group">
+            <label>TRAIN NUMBER OR NAME</label>
+            <div class="input-with-icon">
+              <span class="field-icon">🚆</span>
+              <input type="text" id="train-query" placeholder="e.g. 12128 or Intercity Express" required>
+            </div>
+          </div>
+          <p class="field-hint">Real-time GPS running location, platform numbers & delay updates.</p>
+          <button type="submit" class="cta-primary-btn">Spot Train</button>
+        </form>
+      </div>
+
+      <!-- Tab Content: E-Catering -->
+      <div class="tab-panel" id="tab-food">
+        <form onsubmit="event.preventDefault(); handleFoodOrder();">
+          <div class="input-group">
+            <label>DELIVER MEAL TO BERTH (PNR / TRAIN)</label>
+            <div class="input-with-icon">
+              <span class="field-icon">🍱</span>
+              <input type="text" id="food-pnr" placeholder="Enter PNR to see approved vendors" required>
+            </div>
+          </div>
+          <p class="field-hint">IRCTC approved hygienic meals delivered directly to your train seat.</p>
+          <button type="submit" class="cta-primary-btn">Browse Menus</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Quick Utilities Grid -->
+    <section class="utilities-section">
+      <h3 class="section-title">Quick Rail Services</h3>
+      <div class="utilities-grid">
+        <div class="util-card" onclick="openModal('rwallet')">
+          <div class="util-icon green">💳</div>
+          <div class="util-title">R-Wallet</div>
+          <div class="util-sub">3% cash bonus on UTS</div>
+        </div>
+        <div class="util-card" onclick="openModal('madad')">
+          <div class="util-icon red">🛡️</div>
+          <div class="util-title">Rail Madad</div>
+          <div class="util-sub">File complaints & help</div>
+        </div>
+        <div class="util-card" onclick="openModal('coach')">
+          <div class="util-icon blue">📍</div>
+          <div class="util-title">Coach Position</div>
+          <div class="util-sub">Platform layout view</div>
+        </div>
+        <div class="util-card" onclick="openModal('refund')">
+          <div class="util-icon orange">⚡</div>
+          <div class="util-title">Instant Refund</div>
+          <div class="util-sub">Track TDR status</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Routes Carousel -->
+    <section class="popular-routes">
+      <h3 class="section-title">Featured High-Speed Trains</h3>
+      <div class="cards-carousel">
+        <div class="train-card-mini">
+          <div class="train-badge vande">Vande Bharat</div>
+          <h4>Pune ⇄ CSMT Mumbai</h4>
+          <p class="train-time">03h 05m • 22226 / 22225</p>
+          <div class="fare-tag">From ₹560</div>
+        </div>
+        <div class="train-card-mini">
+          <div class="train-badge rajdhani">Tejas Express</div>
+          <h4>CSMT Mumbai ⇄ Karmali</h4>
+          <p class="train-time">08h 15m • 22119 / 22120</p>
+          <div class="fare-tag">From ₹985</div>
+        </div>
+        <div class="train-card-mini">
+          <div class="train-badge vande">Shatabdi Exp</div>
+          <h4>Pune ⇄ Secunderabad</h4>
+          <p class="train-time">08h 30m • 12025 / 12026</p>
+          <div class="fare-tag">From ₹1,120</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-tab-bar">
+    <a href="#" class="nav-item active" onclick="setActiveNav(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item" onclick="setActiveNav(this); switchServiceTab('book')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+      <span>Bookings</span>
+    </a>
+    <a href="#" class="nav-item" onclick="setActiveNav(this); switchServiceTab('live')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24
